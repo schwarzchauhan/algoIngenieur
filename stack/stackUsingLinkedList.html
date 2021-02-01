@@ -1,63 +1,53 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>&midast;&midast;&midast;STACK&midast;&midast;&midast;</title>
-    <style>
-
-    </style>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-    </style>
-    <style>
-        .task-list-item {
-            list-style-type: none;
-        }
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>&midast;&midast;&midast;STACK&midast;&midast;&midast;</title>
+        <style>
+</style>
         
-        .task-list-item-checkbox {
-            margin-left: -20px;
-            vertical-align: middle;
-        }
-    </style>
-
-
-
-</head>
-
-<body class="vscode-body vscode-light">
-    <h1 id="stack"><em><strong>STACK</strong></em></h1>
-    <h2 id="fifo">FIFO</h2>
-    <p>first in first out</p>
-    <h2 id="-push">⮩ <code>push</code></h2>
-    <p>element inserted in stack</p>
-    <h2 id="-pop">⮩ <code>pop</code></h2>
-    <p>element removed from top of stack</p>
-    <h2 id="-underflow">⮩ Underflow</h2>
-    <p>pop out an empty stack</p>
-    <h2 id="-overflow">⮩ Overflow</h2>
-    <p>push out an empty stack</p>
-    <h2 id="-exceptions">⮩ Exceptions</h2>
-    <ul>
-        <li>pop on an empty stack <em><strong>throws an exception</strong></em></li>
-        <li>push an element in a full stack <em><strong>throws an exception</strong></em></li>
-    </ul>
-    <h1 id="-implementation">⮩ Implementation</h1>
-    <ul>
-        <li>defining a struct type <em><code>with name node</code></em></li>
-        <li><code>isEmpty()</code> to check if stack is <em>empty or not</em></li>
-        <li><code>push()</code> to insert element in the stack, exception overflow</li>
-        <li><code>pop()</code> to remove the top ele from the stack * returns the value of the ele popped, exception : underflow</li>
-        <li><code>peek()</code> prints the ele on the top of the stack</li>
-    </ul>
-    <pre><code class="language-c++"><div>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="stack"><em><strong>STACK</strong></em></h1>
+<h2 id="filo">FILO</h2>
+<p>first in last out</p>
+<h2 id="-push">⮩ <code>push</code></h2>
+<p>element inserted in stack</p>
+<h2 id="-pop">⮩ <code>pop</code></h2>
+<p>element removed from top of stack</p>
+<h2 id="-underflow">⮩ Underflow</h2>
+<p>pop out an empty stack</p>
+<h2 id="-overflow">⮩ Overflow</h2>
+<p>push out an empty stack</p>
+<h2 id="-exceptions">⮩ Exceptions</h2>
+<ul>
+<li>pop on an empty stack <em><strong>throws an exception</strong></em></li>
+<li>push an element in a full stack <em><strong>throws an exception</strong></em></li>
+</ul>
+<h1 id="-implementation">⮩ Implementation</h1>
+<ul>
+<li>defining a struct type <em><code>with name node</code></em></li>
+<li><code>isEmpty()</code> to check if stack is <em>empty or not</em></li>
+<li><code>push()</code> to insert element in the stack, exception overflow</li>
+<li><code>pop()</code> to remove the top ele from the stack * returns the value of the ele popped, exception : underflow</li>
+<li><code>peek()</code> prints the ele on the top of the stack</li>
+</ul>
+<pre><code class="language-c++"><div>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt; </span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 <span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ll long long int</span>
@@ -140,6 +130,5 @@
 
 </div></code></pre>
 
-</body>
-
-</html>
+    </body>
+    </html>
