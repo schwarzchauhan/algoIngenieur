@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>&lowbar;&lowbar;Count Sort&lowbar;&lowbar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="count-sort"><strong>Count Sort</strong></h1>
+<p><em><strong>k</strong></em> is the maximum value element  in array a</p>
+<blockquote>
+<p>It assumes that each element in the array is in range <code>[0,k]</code></p>
+</blockquote>
+<h3 id="basic-idea"><em><strong>basic idea</strong></em></h3>
+<p>to determine, for each input element X, the number of elements less than
+X.
+This information can be used to place it directly into its correct position</p>
+<h3 id="arrays-data-structure-used"><em><strong>arrays data structure used</strong></em></h3>
+<p><code>ct[i]</code> is the occurrence of number i in the array<br>
+<code>cum[i]</code> is the cumulative sum till occ[i](including occ[i]);</p>
+<p><code>0 based indexing assumed in array a &amp; sorted array s</code></p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll long long int
+#define co cout&lt;&lt;
+
+void countSort(ll a[], ll n)   // O(k + n)
+{
+    ll k = INT_MIN;
+    for (ll i = 0; i &lt; n; i++){      // to find k  , O(n)
+        k = max(a[i], k);
+    }
+
+    ll ct[k+1];
+    ll cum[k+1];
+    for (ll i = 0; i &lt;= k; i++){       // O(k), k can be greater than n
+        ct[i] = 0;
+        cum[i] = 0;
+    }
+
+
+    for (ll i = 0; i &lt; n; i++){    //  O(n)
+        ct[a[i]]++;
+    }
+
+    cum[0] = ct[0];
+    for (ll i = 1; i &lt;= k; i++){     // O(k), k can be greater than n
+        cum[i] = cum[i-1] + ct[i];
+    }
+
+    ll s[n];
+    for (ll i = 0; i &lt; n; i++)      //  O(n)
+    {
+        ll index = cum[a[i]]-1;
+        s[index] = a[i];
+
+        cum[a[i]]--;
+    }
+
+    for (ll i = 0; i &lt; n; i++)     //  O(n)
+    {
+        co s[i]&lt;&lt;&quot; &quot;;
+    }co endl;
+}
+
+int main(){
+
+    #ifndef ONLINE_JUDGE
+        freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);
+        freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);
+    #endif
+
+    ll T;
+    cin&gt;&gt;T;
+    for (ll tc = 0; tc &lt; T; tc++){
+        
+        ll n;
+        cin&gt;&gt;n;
+        ll a[n];
+
+        for (ll i = 0; i &lt; n; i++)
+        {
+            cin&gt;&gt;a[i];
+        }
+        countSort(a,n);
+
+
+        
+    }
+
+    return 0;
+}
+
+/*
+
+    Sample input 
+    1
+    5
+    89 9 0 5 3
+
+    Sample output 
+    0 3 5 9 89 
+
+*/
+</code></pre>
+<blockquote>
+<p>It is good algorithm in case k = O(n)</p>
+</blockquote>
+<p>`</p>
+
+    </body>
+    </html>
