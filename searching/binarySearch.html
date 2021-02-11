@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Binary Search</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="binary-search">Binary Search</h1>
+<ul>
+<li>assuming 0-based indexing</li>
+<li>array need to be sorted initially</li>
+<li>complexity O(lgn), if we take arrays as data structure</li>
+</ul>
+<pre><code class="language-C++"><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ll long long int</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> co cout&lt;&lt;</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[], <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> data)</span>  <span class="hljs-comment">// O(lgn) // returns index of an ele if found in array , else returns -1</span>
+</span>{
+    <span class="hljs-keyword">int</span> lb = <span class="hljs-number">0</span>, ub = n<span class="hljs-number">-1</span> ;
+
+    <span class="hljs-keyword">while</span>(lb&lt;=ub)
+    {
+        <span class="hljs-keyword">int</span> mid = (lb+ub)/<span class="hljs-number">2</span>;
+        <span class="hljs-keyword">if</span>(a[mid] == data){
+            <span class="hljs-keyword">return</span> mid;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a[mid] &gt; data){
+            ub = mid<span class="hljs-number">-1</span>;
+        }<span class="hljs-keyword">else</span>{
+            lb = mid+<span class="hljs-number">1</span>;
+        }
+    }<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+
+    <span class="hljs-comment">// #ifndef ONLINE_JUDGE</span>
+    <span class="hljs-comment">//     freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);</span>
+    <span class="hljs-comment">//     freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);</span>
+    <span class="hljs-comment">// #endif</span>
+
+    <span class="hljs-comment">// ll T;</span>
+    <span class="hljs-comment">// cin&gt;&gt;T;</span>
+    <span class="hljs-comment">// for (ll tc = 0; tc &lt; T; tc++){</span>
+        <span class="hljs-keyword">int</span> arr[<span class="hljs-number">9</span>] = {<span class="hljs-number">-78</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">34</span>, <span class="hljs-number">45</span>, <span class="hljs-number">67</span>, <span class="hljs-number">89</span>, <span class="hljs-number">100</span>};
+
+        <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-number">67</span> &lt;&lt;<span class="hljs-string">&quot; found at index : &quot;</span>&lt;&lt; binarySearch(arr,<span class="hljs-number">9</span>,<span class="hljs-number">67</span>)&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-number">-78</span> &lt;&lt;<span class="hljs-string">&quot; found at index : &quot;</span>&lt;&lt; binarySearch(arr,<span class="hljs-number">9</span>,<span class="hljs-number">-78</span>)&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-number">44</span> &lt;&lt;<span class="hljs-string">&quot; found at index : &quot;</span>&lt;&lt; binarySearch(arr,<span class="hljs-number">9</span>,<span class="hljs-number">44</span>)&lt;&lt;<span class="hljs-built_in">endl</span>;
+    <span class="hljs-comment">// }</span>
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/*
+
+Sample input 
+
+Sample output 
+
+*/</span>
+</div></code></pre>
+
+    </body>
+    </html>

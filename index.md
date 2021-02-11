@@ -8,3 +8,9 @@
 
 ## __Sorting__
 * [count sort](sorts/countSort.html)
+
+## ___Linked List__
++ [singly](linkedList/linkedList.html)
+
+## __Searching__
++ [binary seach](searching/binarySearch.html)

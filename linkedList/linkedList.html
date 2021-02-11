@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Linked List</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="linked-list">Linked List</h1>
+<ul>
+<li>we can grow or shrink size</li>
+<li>last node points to NULL</li>
+<li>each node points to its next node</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Linked List</th>
+<th>Array</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>elements access in worst case O(n), hence <strong>access time is more</strong></td>
+<td>elements <strong>can be accessed in constant time</strong> O(1)</td>
+</tr>
+<tr>
+<td>memory <em>allocated only when element is inserted</em></td>
+<td><em>memory needs to preallocated</em>, i.e. <strong>fixed size</strong></td>
+</tr>
+<tr>
+<td>hence <strong>memory saved</strong></td>
+<td>hence <strong>memory wasted</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="dynamic-array"><strong>Dynamic Array</strong></h2>
+<ul>
+<li>growable &amp; shrinkable</li>
+<li>size is doubled when no of ele 🠅es to more than half the size</li>
+<li>size is halved  when no of ele 🠇es to less than half the size</li>
+</ul>
+<h2 id="implementation"><strong>Implementation</strong></h2>
+<pre><code class="language-C++"><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ll long long int</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> co cout&lt;&lt;</span>
+
+
+<span class="hljs-comment">/*
+    head &quot; pts to the first ele in the linked list
+    temp, prev : temporary variable 
+    assuming 1-based indexing
+*/</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>{</span>
+    <span class="hljs-keyword">int</span> data;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>*  <span class="hljs-title">next</span>;</span>         <span class="hljs-comment">// *next points to next node,(pts to NULL in case their is no next ele) </span>
+};
+
+
+<span class="hljs-function">struct node* <span class="hljs-title">createList</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+}
+
+<span class="hljs-comment">// O(n) for traversing linked list &amp; returns total no of ele in the list</span>
+<span class="hljs-comment">// space complexity - O(1) for creating tempory variable</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">size</span><span class="hljs-params">(struct node* head)</span>
+</span>{
+    <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>){
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;list is empty&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">temp</span> = <span class="hljs-title">head</span>;</span>
+    <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span>(temp != <span class="hljs-literal">NULL</span>)
+    {
+        <span class="hljs-comment">//cout&lt;&lt;temp-&gt;data&lt;&lt;&quot; &quot;;</span>
+        l++;
+        temp = temp -&gt; next;
+    }
+    <span class="hljs-comment">//cout&lt;&lt;endl;</span>
+    <span class="hljs-keyword">return</span> l;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(struct node *head)</span>
+</span>{
+    <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>){
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;list is empty&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">temp</span> = <span class="hljs-title">head</span>;</span>
+    <span class="hljs-keyword">while</span>(temp != <span class="hljs-literal">NULL</span>)
+    {
+        <span class="hljs-built_in">cout</span>&lt;&lt;temp-&gt;data&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;
+        temp = temp -&gt; next;
+    }
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+}
+
+
+<span class="hljs-comment">//to insert a node at position p</span>
+<span class="hljs-comment">// O(n) in worst case when we r inserting at the end</span>
+<span class="hljs-comment">//O(1) - space complexity to create temporary variable</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(struct node **head, <span class="hljs-keyword">int</span> value, <span class="hljs-keyword">int</span> p)</span> <span class="hljs-comment">// pass by reference , hence we used double pointer</span>
+</span>{
+    <span class="hljs-keyword">int</span> length = size(*head);
+
+    <span class="hljs-keyword">if</span>(p &lt; <span class="hljs-number">1</span> || p &gt; length+<span class="hljs-number">1</span>)
+    {
+        <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;invalid position&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">return</span>;
+    } 
+
+    <span class="hljs-comment">// creating new node</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">newNode</span>;</span>
+    newNode = (struct node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(struct node));
+    newNode -&gt; data = value;
+
+    <span class="hljs-keyword">if</span>(p == <span class="hljs-number">1</span> )                     <span class="hljs-comment">// we need to insert new node __at beginning__ &amp; update head</span>
+    {
+        newNode -&gt; next = *head;
+        *head = newNode;
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( p == length +<span class="hljs-number">1</span> )       <span class="hljs-comment">// 1. we need to insert new node __at the end__ &amp; 2. update next ptr of last node(currently) to pt to the newNode </span>
+    {
+        
+        struct node* temp;
+        temp = *head;
+        <span class="hljs-keyword">while</span>(temp -&gt; next != <span class="hljs-literal">NULL</span>)  <span class="hljs-comment">// loop to traverse to last ele of the linked list</span>
+        {
+            temp = temp -&gt; next;
+        }
+        newNode -&gt; next = <span class="hljs-literal">NULL</span>;
+        temp    -&gt; next = newNode;
+    }
+    <span class="hljs-keyword">else</span>                <span class="hljs-comment">// we need to insert new node somewhere inside the linked list</span>
+    {
+        struct node* temp;
+        temp = *head;
+
+        
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= p<span class="hljs-number">-2</span>; i++)  <span class="hljs-comment">//loop to reach (p-1)th position</span>
+        {
+            temp = temp -&gt; next;
+        }
+
+        newNode -&gt; next = temp -&gt; next;
+        temp    -&gt; next = newNode;
+    }
+}
+
+
+<span class="hljs-comment">// to delete a node at postiton p</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">del</span><span class="hljs-params">(struct node** head, <span class="hljs-keyword">int</span> p)</span>     <span class="hljs-comment">// pass by reference , hence we used double pointer</span>
+</span>{
+    <span class="hljs-keyword">int</span> length = size(*head);
+
+    <span class="hljs-keyword">if</span>(p &lt; <span class="hljs-number">1</span> || p &gt; length)
+    {
+        <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;invalid position&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">return</span>;
+    } 
+
+    <span class="hljs-keyword">if</span>(p ==<span class="hljs-number">1</span> )      <span class="hljs-comment">//delete 1st node</span>
+    {
+        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">temp</span>;</span>
+        temp = *head;
+
+        *head = temp -&gt;next;    <span class="hljs-comment">//updating head</span>
+        <span class="hljs-built_in">free</span>(temp);             <span class="hljs-comment">//deallocating memory to free space</span>
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( p == length )  <span class="hljs-comment">//delete last node</span>
+    {
+        struct node *prev, *temp;
+        prev = *head;
+        temp = prev -&gt; next;
+
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i&lt;=p<span class="hljs-number">-2</span>; i++)
+            {
+                prev = temp;
+                temp = temp-&gt;next;
+            }
+
+        <span class="hljs-comment">/*
+            alternatively
+            if( p != 2)
+            {
+                while(temp -&gt; next != NULL)
+                {
+                    prev = temp;
+                    temp = temp -&gt; next;
+                }
+            }
+        */</span>
+
+        <span class="hljs-comment">// now our temp node is at tail of linked list ,, prev node is located previous to tail node</span>
+        prev -&gt; next = <span class="hljs-literal">NULL</span>;
+        <span class="hljs-built_in">free</span>(temp);
+    }
+    <span class="hljs-keyword">else</span>            <span class="hljs-comment">// delete a node present intermdiate linked list</span>
+    {
+        struct node *prev, *temp;
+        prev = *head;
+        temp = prev -&gt; next;
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i&lt;=p<span class="hljs-number">-2</span>; i++)
+        {
+            prev = temp;
+            temp = temp-&gt;next;
+        }
+
+        prev -&gt; next = temp -&gt; next;
+        <span class="hljs-built_in">free</span>(temp);
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deleteList</span><span class="hljs-params">(struct node **head)</span>
+</span>{
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> *<span class="hljs-title">temp</span>;</span>
+    temp = *head;
+
+    <span class="hljs-keyword">while</span>((*head) != <span class="hljs-literal">NULL</span> )
+    {
+        *head = (*head) -&gt; next;    <span class="hljs-comment">// don&#x27;t use *head = *head -&gt; next;(precedence issue)</span>
+        <span class="hljs-comment">//cout &lt;&lt; temp -&gt;data &lt;&lt;&quot; &quot;;</span>
+        <span class="hljs-built_in">free</span>(temp);
+        temp = *head;
+    }
+
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+
+    <span class="hljs-comment">// #ifndef ONLINE_JUDGE</span>
+    <span class="hljs-comment">//     freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);</span>
+    <span class="hljs-comment">//     freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);</span>
+    <span class="hljs-comment">// #endif</span>
+
+    <span class="hljs-comment">// ll T;</span>
+    <span class="hljs-comment">// cin&gt;&gt;T;</span>
+    <span class="hljs-comment">// for (ll tc = 0; tc &lt; T; tc++){</span>
+        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> *<span class="hljs-title">h</span>;</span>
+        h = createList();
+        <span class="hljs-keyword">int</span> choice, d, p ;
+        <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)
+        {
+            <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;enter choice 1) insert 2) delete 3) deleteLinkedList 4) exit ~~~ &quot;</span>;
+            <span class="hljs-built_in">cin</span>&gt;&gt;choice;
+            <span class="hljs-keyword">switch</span>(choice)
+            {
+                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span> :    <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;enter &lt;data&gt; &lt;position&gt; : &quot;</span>;
+                            <span class="hljs-built_in">cin</span>&gt;&gt; d &gt;&gt;p;
+                            insert(&amp;h, d, p);
+                            print(h);
+                        <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">2</span> :    <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;enter &lt;position&gt; : &quot;</span>;
+                            <span class="hljs-built_in">cin</span> &gt;&gt;p;
+                            del(&amp;h, p);
+                            print(h);
+                        <span class="hljs-keyword">break</span>;
+
+                <span class="hljs-keyword">case</span> <span class="hljs-number">3</span> :    deleteList(&amp;h);
+                            print(h);
+                        <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-number">4</span> :    print(h);
+                            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;breaking out of pgm &quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+                        <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">default</span> : <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;invalid choice&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+                        <span class="hljs-keyword">break</span>;
+            }
+            <span class="hljs-keyword">if</span>(choice == <span class="hljs-number">4</span>)
+            {
+                <span class="hljs-keyword">break</span>;
+            }
+        }
+
+    <span class="hljs-comment">// }</span>
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/*
+
+Sample input 
+
+Sample output 
+
+*/</span>
+</div></code></pre>
+
+    </body>
+    </html>
