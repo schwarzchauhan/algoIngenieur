@@ -58,4 +58,4 @@ Sample output
 */
 ```
 
-![illustration](binarySearch.jpg)
+<img alt="console" src="binarySearch.jpg">
