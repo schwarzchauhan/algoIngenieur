@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>&lowbar;&lowbar;Priority Queue&lowbar;&lowbar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="priority-queue"><strong>Priority Queue</strong></h1>
+<h2 id="application">Application</h2>
+<ul>
+<li>job scheduling</li>
+<li>prim</li>
+<li>dijkstra</li>
+<li>data compression - huffman</li>
+<li>event driven simulation</li>
+<li>selection - find kth smallest ele</li>
+</ul>
+<p>ascending priority queue - ele with smallest key has highest priority
+descending priority queue - ele with largest key has highest priority</p>
+<h1 id="operations">Operations</h1>
+<ul>
+<li>insert(key, data)</li>
+<li>deleteMin()</li>
+<li>getMinimum()</li>
+</ul>
+<h1 id="binary-heap-implementation">Binary heap implementation</h1>
+<h2 id="heap-propt">Heap Propt</h2>
+<ul>
+<li>value of node must be ≥ or ≤ than its child node</li>
+<li>heap should be completer binary tree</li>
+</ul>
+<h3 id="min-heap---value-of-the-node-must-be--its-child-nodes">Min heap - value of the node must be ≤ its child nodes</h3>
+<h3 id="max-heap---value-of-the-node-must-be--its-child-nodes">Max heap - value of the node must be ≥ its child nodes</h3>
+<h1 id="max-priority-queue-implementation">Max priority queue implementation</h1>
+<ul>
+<li>type = 1 , for max pq</li>
+<li>type = 0, for min pq</li>
+</ul>
+<p>createHeap() : to create &amp; return heap</p>
+<p>delHeap()</p>
+<p>parent(h,i)  :  returns index of parent of nodei, otherwise returns -1 invalid case</p>
+<p>leftChild() :  returns index of left child of node i, otherwise returns -1 in invalid case</p>
+<p>rightChild() :  returns index of right child of node i, otherwise returns -1 ininvalid case</p>
+<p>extractHighPriorityEle() : returns -1 if stack is empty , otherwise returns value of high priority ele</p>
+<p>heapify()</p>
+<pre><code><code><div>assuming that the both left &amp; right subtree of index i satisfies the heap propt
+we may slide the ele at ind  i downward if it's not consistent with its's child w.r.t. heap propt
+also called percolate down ,
+O(lgn), in worst case we start at root and go downward to leave , equal to height of tree which is lgn
+</div></code></code></pre>
+<p>ins()</p>
+<p>del() : to delete the highest priority ele</p>
+<p>print()</p>
+<p>main() : driver pgm</p>
+<pre><code class="language-C++"><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ll long long int</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> co cout&lt;&lt;</span>
+
+<span class="hljs-comment">// assuming 0-based indexing</span>
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">heap</span>{</span>
+    <span class="hljs-keyword">int</span> *a, *ind;         <span class="hljs-comment">// array </span>
+    <span class="hljs-keyword">int</span> hs;             <span class="hljs-comment">//  hs of ele in heap</span>
+    <span class="hljs-keyword">int</span> cap;            <span class="hljs-comment">//  maxm size of heap aintowed</span>
+    <span class="hljs-keyword">int</span> type;          <span class="hljs-comment">// min heap - 0 or max heap - 1</span>
+};
+
+
+
+<span class="hljs-function">struct heap*  <span class="hljs-title">createHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> cap, <span class="hljs-keyword">int</span> type)</span></span>{    <span class="hljs-comment">// O(1)</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">heap</span> *<span class="hljs-title">h</span> = (<span class="hljs-title">struct</span> <span class="hljs-title">heap</span> *)<span class="hljs-title">malloc</span>(<span class="hljs-title">sizeof</span>(<span class="hljs-title">struct</span> <span class="hljs-title">heap</span>));</span>   <span class="hljs-comment">// allocating memory</span>
+    <span class="hljs-keyword">if</span>( h == <span class="hljs-literal">NULL</span>){        <span class="hljs-comment">// ~~</span>
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; memory error &quot;</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+    }
+
+    h -&gt; hs = <span class="hljs-number">0</span>;
+    h -&gt; cap = cap;
+    h -&gt; type = type;
+
+    h -&gt;  a = (<span class="hljs-keyword">int</span> *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>) * (h-&gt;cap) );       <span class="hljs-comment">// allocating memory to array</span>
+    <span class="hljs-keyword">if</span>( h -&gt; a == <span class="hljs-literal">NULL</span> ){    <span class="hljs-comment">// ~~</span>
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; memory error &quot;</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+    }
+
+    <span class="hljs-keyword">return</span> h;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">parent</span><span class="hljs-params">(struct heap *h, <span class="hljs-keyword">int</span> i)</span></span>{       
+    <span class="hljs-keyword">return</span> ( i &lt;= <span class="hljs-number">0</span> || i &gt;= h-&gt;hs )? <span class="hljs-number">-1</span> : (i<span class="hljs-number">-1</span>)/<span class="hljs-number">2</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">leftChild</span><span class="hljs-params">(struct heap *h, <span class="hljs-keyword">int</span> i)</span> </span>{
+    <span class="hljs-keyword">return</span> ((<span class="hljs-number">2</span>*i+<span class="hljs-number">1</span>) &lt; (h-&gt;hs)) ? (<span class="hljs-number">2</span>*i+<span class="hljs-number">1</span>) : <span class="hljs-number">-1</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">rightChild</span><span class="hljs-params">(struct heap *h, <span class="hljs-keyword">int</span> i)</span></span>{
+    <span class="hljs-keyword">return</span> ((<span class="hljs-number">2</span>*i+<span class="hljs-number">2</span>) &lt; (h-&gt;hs)) ? (<span class="hljs-number">2</span>*i+<span class="hljs-number">2</span>) : <span class="hljs-number">-1</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">extractHighPriorityEle</span><span class="hljs-params">(struct heap *h)</span></span>{
+    <span class="hljs-keyword">return</span> ( h-&gt;hs == <span class="hljs-number">0</span> )? <span class="hljs-number">-1</span> : h-&gt;a[<span class="hljs-number">0</span>];
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">heapify</span><span class="hljs-params">(struct heap *h, <span class="hljs-keyword">int</span> i)</span> </span>{
+    <span class="hljs-keyword">if</span>( i &gt;= h-&gt;hs  || i &lt; <span class="hljs-number">0</span> ){
+        <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">int</span> lc = leftChild(h, i), rc = rightChild(h, i), largest = i;
+    <span class="hljs-keyword">if</span>( h-&gt;type == <span class="hljs-number">0</span> ){
+        <span class="hljs-comment">/* code */</span>
+    }
+    <span class="hljs-keyword">else</span> {  <span class="hljs-comment">// max priority </span>
+        <span class="hljs-keyword">if</span>( h-&gt;a[largest] &lt; h-&gt;a[lc] &amp;&amp; lc != <span class="hljs-number">-1</span> ){
+            largest = lc;
+        }
+        <span class="hljs-keyword">if</span>( h-&gt;a[largest] &lt; h-&gt;a[rc] &amp;&amp; rc != <span class="hljs-number">-1</span> ){
+            largest = rc;
+        }
+        <span class="hljs-keyword">if</span>( largest != i){
+            swap( h-&gt;a[i], h-&gt;a[largest]);
+            heapify(h, largest);
+        }
+    }
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">del</span><span class="hljs-params">(struct heap *h)</span> </span>{   <span class="hljs-comment">// O(lgn)</span>
+    <span class="hljs-keyword">if</span>( h-&gt;hs == <span class="hljs-number">0</span>  <span class="hljs-comment">/*  h-&gt;hs &lt;=0 */</span>){
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;heap already empty&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+    }
+
+    <span class="hljs-keyword">int</span> ele = h-&gt;a[<span class="hljs-number">0</span>];
+
+    h -&gt; a[<span class="hljs-number">0</span>] = h -&gt; a[h-&gt;hs<span class="hljs-number">-1</span>];
+    h -&gt; hs   = h -&gt; hs - <span class="hljs-number">1</span>;
+    heapify(h, <span class="hljs-number">0</span>);              <span class="hljs-comment">// new value at root node may not satisfy heap propt , hence we heapify from root</span>
+
+    <span class="hljs-keyword">return</span> ele;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ins</span><span class="hljs-params">(struct heap *h, <span class="hljs-keyword">int</span> data)</span>     <span class="hljs-comment">// O(lgn), in worst case we r traversing heap linearly from leave to root, which is equal to the height of tree i.e. lgn</span>
+</span>{
+    <span class="hljs-keyword">if</span>( h-&gt;type == <span class="hljs-number">0</span>){
+        <span class="hljs-comment">/* code*/</span>
+    }
+    <span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">if</span>( h -&gt; hs == h -&gt; cap <span class="hljs-comment">/*  h -&gt; hs &gt;= h -&gt; cap */</span> ) {
+            <span class="hljs-comment">/* resize */</span>
+            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;heap is fully occupied&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        }
+        <span class="hljs-keyword">else</span> 
+        {
+            <span class="hljs-keyword">int</span> i = h-&gt;hs;
+            h -&gt; a[i] = data;
+            h -&gt; hs  = h-&gt; hs + <span class="hljs-number">1</span>;
+
+            <span class="hljs-keyword">int</span> p = parent(h , i);
+            <span class="hljs-keyword">while</span>( i &gt; <span class="hljs-number">0</span> &amp;&amp; (h-&gt;a[p] &lt;  h -&gt; a[i])){    <span class="hljs-comment">// alternatively while(p != -1)        // bottom up approach used</span>
+                swap( h-&gt;a[p], h-&gt;a[i] );
+                i = p;
+                p = parent(h, i);
+            }
+        }
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(struct heap *h)</span></span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; h-&gt;hs; i++){
+        <span class="hljs-built_in">cout</span> &lt;&lt; h-&gt;a[i]&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;
+    }<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">delHeap</span><span class="hljs-params">(struct heap* h)</span></span>{
+    <span class="hljs-keyword">if</span> ( h == <span class="hljs-literal">NULL</span>)
+        <span class="hljs-keyword">return</span>;
+    <span class="hljs-built_in">free</span>( h -&gt; a);
+    <span class="hljs-built_in">free</span>(h);
+    h = <span class="hljs-literal">NULL</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">buildMinHeap</span><span class="hljs-params">(struct heap *h, ll a[], ll n)</span></span>{
+    <span class="hljs-keyword">for</span> (ll i = <span class="hljs-number">0</span>; i &lt; n; i++){
+        h -&gt; a[i] = a[i];
+    }
+    h-&gt;hs = n;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = (n - <span class="hljs-number">1</span>)/<span class="hljs-number">2</span> ; i &gt;= <span class="hljs-number">0</span>; i--){
+        heapify(h, i);
+    }
+    print(h);
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+
+    <span class="hljs-comment">// #ifndef ONLINE_JUDGE</span>
+    <span class="hljs-comment">//     freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);</span>
+    <span class="hljs-comment">//     freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);</span>
+    <span class="hljs-comment">// #endif</span>
+
+    <span class="hljs-comment">// int T;</span>
+    <span class="hljs-comment">// cin&gt;&gt;T;</span>
+    <span class="hljs-comment">// for (int tc = 0; tc &lt; T; tc++){</span>
+        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">heap</span> *<span class="hljs-title">h</span>;</span>
+        h = createHeap(<span class="hljs-number">50</span>, <span class="hljs-number">1</span>);
+
+        <span class="hljs-built_in">cout</span> &lt;&lt;h-&gt;hs&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt;h-&gt;cap&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt;h-&gt;type&lt;&lt;<span class="hljs-built_in">endl</span>;
+
+        <span class="hljs-keyword">int</span> data,c;
+        <span class="hljs-keyword">bool</span> u = <span class="hljs-literal">true</span>;
+
+        <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;1)ins \t 2)del \t 3)peek \t 4)heapSize \t 5)capacity \t 6)index \t 7)print \t 8)exit&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        <span class="hljs-keyword">while</span>(u == <span class="hljs-literal">true</span>)
+        {
+            <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;Choice : &quot;</span>;
+            <span class="hljs-built_in">cin</span> &gt;&gt; c;
+            <span class="hljs-keyword">if</span>(c == <span class="hljs-number">1</span>)
+            {
+                <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;enter the data : &quot;</span>; 
+                <span class="hljs-built_in">cin</span>&gt;&gt;data; 
+                ins(h,data);
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( c == <span class="hljs-number">2</span> )
+                del(h);
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( c == <span class="hljs-number">3</span> )
+                <span class="hljs-built_in">cout</span> &lt;&lt;extractHighPriorityEle(h)&lt;&lt;<span class="hljs-built_in">endl</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( c == <span class="hljs-number">4</span>)
+                <span class="hljs-built_in">cout</span>  &lt;&lt; h-&gt;hs&lt;&lt;<span class="hljs-built_in">endl</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( c == <span class="hljs-number">5</span> )
+                <span class="hljs-built_in">cout</span> &lt;&lt; h-&gt; cap&lt;&lt;<span class="hljs-built_in">endl</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(c == <span class="hljs-number">6</span>){
+                <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;enter index : &quot;</span>;
+                <span class="hljs-built_in">cin</span> &gt;&gt; c;
+                <span class="hljs-keyword">if</span> ( c &gt;= h-&gt;hs){
+                    <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;invalid posn&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+                }<span class="hljs-keyword">else</span>{
+                    <span class="hljs-built_in">cout</span> &lt;&lt; h-&gt; a[c]&lt;&lt;<span class="hljs-built_in">endl</span>;
+                }
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( c == <span class="hljs-number">7</span> )
+                print(h);
+            <span class="hljs-keyword">else</span>
+                u = <span class="hljs-literal">false</span>;
+
+            <span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;ok&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        }
+    <span class="hljs-comment">// }</span>
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">/*
+
+Sample input
+
+Sample output
+
+*/</span>
+</div></code></pre>
+
+    </body>
+    </html>

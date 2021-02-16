@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pass by value &amp; Pass by reference</title>
+    <style>
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+    <style>
+        .task-list-item {
+            list-style-type: none;
+        }
+        
+        .task-list-item-checkbox {
+            margin-left: -20px;
+            vertical-align: middle;
+        }
+    </style>
+
+
+
+</head>
+
+<body class="vscode-body vscode-light">
+    <h1 id="pass-by-value--pass-by-reference">Pass by value &amp; Pass by reference</h1>
+    <pre><code class="language-C++"><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ll long long int</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> co cout&lt;&lt;</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fn1</span> <span class="hljs-params">(<span class="hljs-keyword">int</span> *a )</span></span>{      <span class="hljs-comment">//   pass by reference</span>
+    *a = <span class="hljs-number">9</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fn2</span> <span class="hljs-params">(<span class="hljs-keyword">int</span> b )</span></span>{       <span class="hljs-comment">//   pass by value</span>
+    b = <span class="hljs-number">9</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+
+    <span class="hljs-comment">// #ifndef ONLINE_JUDGE</span>
+    <span class="hljs-comment">//     freopen(&quot;input.txt&quot;, &quot;r&quot;, stdin);</span>
+    <span class="hljs-comment">//     freopen(&quot;output.txt&quot;, &quot;w&quot;, stdout);</span>
+    <span class="hljs-comment">// #endif</span>
+
+    <span class="hljs-comment">// int T;</span>
+    <span class="hljs-comment">// cin&gt;&gt;T;</span>
+    <span class="hljs-comment">// for (int tc = 0; tc &lt; T; tc++){</span>
+
+        <span class="hljs-keyword">int</span> a = <span class="hljs-number">89</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt;a&lt;&lt;<span class="hljs-built_in">endl</span>;
+        fn1(&amp;a);             <span class="hljs-comment">// pass by reference</span>
+        <span class="hljs-built_in">cout</span> &lt;&lt;a&lt;&lt;<span class="hljs-built_in">endl</span>;
+
+        <span class="hljs-keyword">int</span> b = <span class="hljs-number">70</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt;b&lt;&lt;<span class="hljs-built_in">endl</span>; 
+        fn2(b);             <span class="hljs-comment">// pass by value</span>
+        <span class="hljs-built_in">cout</span> &lt;&lt;b&lt;&lt;<span class="hljs-built_in">endl</span>; 
+    
+    <span class="hljs-comment">// }</span>
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+    <p><img src="passByValueReference.jpg" alt="passBy*Illustration"></p>
+    <h1 id="memory-allocation--deallocation-basics">Memory Allocation / Deallocation basics</h1>
+    <pre><code class="language-C++"><div>    <span class="hljs-built_in">free</span>(ptr); <span class="hljs-comment">// to deallocate the memory assigned to the ptr</span>
+
+    <span class="hljs-keyword">int</span> *a;
+    a = (<span class="hljs-keyword">int</span> *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>) * n);     <span class="hljs-comment">// to allocate memory to ptr to an array of size n</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> *<span class="hljs-title">h</span>;</span>
+    h = (struct node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(struct node));      <span class="hljs-comment">// to allocate memory to an ptr(*h) pointing to ele of struct node type</span>
+</div></code></pre>
+    <h1 id="struct">struct</h1>
+    <ul>
+        <li>user can use struct to make their own data type</li>
+    </ul>
+    <pre><code class="language-C++"><div>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">student</span>{</span>
+    <span class="hljs-keyword">int</span> rollno;
+    <span class="hljs-keyword">char</span> grade;
+    <span class="hljs-keyword">int</span> age;
+};
+
+<span class="hljs-comment">/*
+now if we make ptr of struct student type 
+then we can easily access its all attributes
+*/</span>
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">student</span> *<span class="hljs-title">ram</span>;</span>
+
+ram = (struct student *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(struct student));     <span class="hljs-comment">// allocating memory to store value  of data types(int,chr,int) mentioned, </span>
+
+ram -&gt; rollno = <span class="hljs-number">89</span>;
+ram -&gt; grade = <span class="hljs-string">&#x27;B&#x27;</span>;
+ram -&gt; age = <span class="hljs-number">14</span>;
+
+<span class="hljs-built_in">free</span>(ram);      <span class="hljs-comment">// deallocate all memory space for student ram, i.e. delete everydata related to ram</span>
+</div></code></pre>
+    <p>Node in Complete Binary Tree</p>
+    <pre><code class="language-C++"><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>{</span>
+    ll data;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> *<span class="hljs-title">lc</span>, *<span class="hljs-title">rc</span>;</span>
+};
+
+<span class="hljs-function">struct node* <span class="hljs-title">createNode</span><span class="hljs-params">(ll data)</span></span>{
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>* <span class="hljs-title">newNode</span>;</span>
+
+    newNode = (struct node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(struct node));
+
+    newNode -&gt; data = data;
+    newNode -&gt; lc   = <span class="hljs-literal">NULL</span>;
+    newNode -&gt; rc   = <span class="hljs-literal">NULL</span>;
+
+    <span class="hljs-keyword">return</span> newNode;
+}
+</div></code></pre>
+
+</body>
+
+</html>
