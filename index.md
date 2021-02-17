@@ -1,6 +1,9 @@
 # Algo Explanation [Indian Ingenieur](https://indian-ingenieure.blogspot.com/)
 
-__DS__
+DS
+---
++ Array
+  + [passing 2d array as arg](Ds/passing2DarrAsArg.html)
 + [pointer](ds/pointer.html)
 + Stack 
   * [using linked list](stack/stackUsingLinkedList.html)
@@ -12,7 +15,7 @@ __DS__
 ## __Sorting__
 * [count sort](sorts/countSort.html)
 
-## ___Linked List__
+## __Linked List__
 + [singly](linkedList/linkedList.html)
 
 ## __Searching__
