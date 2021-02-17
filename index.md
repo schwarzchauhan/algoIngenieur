@@ -3,7 +3,7 @@
 DS
 ---
 + Array
-  + [passing 2d array as arg](Ds/passing2DarrAsArg.html)
+  + [passing 2d array as arg](ds/passing2DarrAsArg.html)
 + [pointer](ds/pointer.html)
 + Stack 
   * [using linked list](stack/stackUsingLinkedList.html)
